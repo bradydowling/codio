@@ -55,9 +55,14 @@
                     "description": "The color of the cursor in a Codio in a dark theme"
                 },
                 "codio.cursorColorLightTheme": {
-                    "type": "string",
-                    "default": "rgb(255, 255, 255)",
-                    "description": "The color of the cursor in a Codio in a light theme"
+                  "type": "string",
+                  "default": "rgb(255, 255, 255)",
+                  "description": "The color of the cursor in a Codio in a light theme"
+                },
+                "codio.showOnStatusbar": {
+                  "type": "boolean",
+                  "default": "true",
+                  "description": "Change this to false if you don't want Codio's status in the statusbar"
                 }
             }
         },

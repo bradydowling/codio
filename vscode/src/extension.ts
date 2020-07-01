@@ -8,6 +8,7 @@ import * as COMMAND_NAMES from './consts/command_names';
 import * as codioCommands from './commands/index';
 import { createSdk } from './sdk';
 import { getWorkspaceUriAndCodioDestinationUri } from './filesystem/workspace';
+import { StatusbarUi } from './user_interface/StatusbarItem';
 
 const fsManager = new FSManager();
 const player = new Player();
@@ -31,10 +32,12 @@ export async function activate(context: ExtensionContext) {
   await fsManager.createExtensionFolders();
   UI.shouldDisplayMessages = true;
   registerTreeViews(fsManager, context.extensionPath);
+  StatusbarUi.Init();
 
   const recordCodioDisposable = commands.registerCommand(
     COMMAND_NAMES.RECORD_CODIO,
     async (destination?: Uri, workspaceRoot?: Uri) => {
+      StatusbarUi.SetStateRecording();
       codioCommands.recordCodio(fsManager, player, recorder, destination, workspaceRoot, showCodioNameInputBox);
     },
   );
@@ -50,6 +53,7 @@ export async function activate(context: ExtensionContext) {
   );
 
   const finishRecordingDisposable = commands.registerCommand(COMMAND_NAMES.FINISH_RECORDING, () => {
+    StatusbarUi.SetStateResting();
     codioCommands.finishRecording(recorder);
   });
 
